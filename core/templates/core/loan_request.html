@@ -1,0 +1,30 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+  <h2>Request a Loan</h2>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit Loan Request</button>
+  </form>
+
+  {% if messages %}
+    {% for message in messages %}
+      <p style="color: {% if message.tags == 'error' %}red{% else %}green{% endif %};">
+        {{ message }}
+      </p>
+    {% endfor %}
+  {% endif %}
+
+  <h3>Your Loan Requests</h3>
+  <ul>
+    {% for loan in user_loans %}
+      <li>${{ loan.amount }} - {{ loan.status }} - {{ loan.created_at }}</li>
+    {% empty %}
+      <li>No loan requests found.</li>
+    {% endfor %}
+  </ul>
+
+  <a href="{% url 'customer_dashboard' %}">← Back to Dashboard</a>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+  <h2>Customer Registration</h2>
+  <form method="post">
+    {% csrf_token %}
+    {% if form.non_field_errors %}
+      <ul style="color: red;">
+        {% for error in form.non_field_errors %}
+          <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {{ form.as_p }}
+    <button type="submit">Register</button>
+  </form>
+
+  <a href="{% url 'login' %}">Already have an account? Login</a>
+  {% if messages %}
+    {% for message in messages %}
+      <p style="color: {% if message.tags == 'error' %}red{% else %}green{% endif %};">
+        {{ message }}
+      </p>
+    {% endfor %}
+  {% endif %}
+{% endblock %}
+

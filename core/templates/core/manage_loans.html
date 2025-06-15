@@ -1,0 +1,35 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<h2>Manage Loan Requests</h2>
+
+<table border="1">
+  <tr>
+    <th>User</th>
+    <th>Amount</th>
+    <th>Reason</th>
+    <th>Status</th>
+    <th>Action</th>
+  </tr>
+  {% for loan in loans %}
+  <tr>
+    <td>{{ loan.user.username }}</td>
+    <td>${{ loan.amount }}</td>
+    <td>{{ loan.reason }}</td>
+    <td>{{ loan.status }}</td>
+    <td>
+      {% if loan.status == 'PENDING' %}
+      <form method="post" style="display:inline;">
+        {% csrf_token %}
+        <input type="hidden" name="loan_id" value="{{ loan.id }}">
+        <button name="action" value="approve">Approve</button>
+        <button name="action" value="deny">Deny</button>
+      </form>
+      {% else %}
+        {{ loan.status }}
+      {% endif %}
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+<a href="{% url 'manager_dashboard' %}">Back to Dashboard</a>
+{% endblock %}
