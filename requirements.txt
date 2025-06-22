@@ -33,7 +33,6 @@ matplotlib==3.10.3
 numpy==2.3.0
 packaging==25.0
 pandas==2.3.0
-pillow==10.2.0
 pluggy==1.6.0
 psycopg2==2.9.10
 psycopg2-binary==2.9.10
@@ -53,3 +52,4 @@ tzdata==2025.2
 Werkzeug==3.1.3
 whitenoise==6.6.0
 WTForms==3.2.1
+pillow==11.2.1
